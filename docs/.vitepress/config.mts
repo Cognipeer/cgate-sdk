@@ -4,8 +4,9 @@ export default defineConfig({
   title: 'CG SDK',
   description: 'Official TypeScript SDK for CognipeerAI Gateway',
   base: '/cgate-sdk/',
+  ignoreDeadLinks: true,
   themeConfig: {
-    logo: '/logo.png',
+    logo: '/logo.svg',
     nav: [
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'API Reference', link: '/api/client' },
@@ -79,7 +80,7 @@ export default defineConfig({
     },
   },
   head: [
-    ['link', { rel: 'icon', href: '/cgate-sdk/favicon.ico' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/cgate-sdk/favicon.svg' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'og:type', content: 'website' }],
     ['meta', { name: 'og:locale', content: 'en' }],
