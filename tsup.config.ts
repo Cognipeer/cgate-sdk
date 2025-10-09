@@ -10,4 +10,9 @@ export default defineConfig({
   minify: false,
   treeshake: true,
   external: [],
+  outExtension({ format }) {
+    return {
+      js: format === 'cjs' ? '.cjs' : '.mjs',
+    };
+  },
 });
