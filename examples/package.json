@@ -1,0 +1,20 @@
+{
+  "name": "cgate-sdk-examples",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Examples for CG SDK",
+  "scripts": {
+    "example:chat": "tsx chat-basic.ts",
+    "example:streaming": "tsx chat-streaming.ts",
+    "example:rag": "tsx rag-example.ts",
+    "example:file": "tsx file-upload.ts"
+  },
+  "dependencies": {
+    "@cognipeer/cgate-sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

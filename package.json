@@ -1,0 +1,70 @@
+{
+  "name": "@cognipeer/cgate-sdk",
+  "version": "1.0.0",
+  "description": "TypeScript SDK for CognipeerAI Gateway - Multi-tenant AI services platform",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "prepublishOnly": "npm run build",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "keywords": [
+    "cognipeer",
+    "ai",
+    "llm",
+    "vector-database",
+    "embeddings",
+    "chat",
+    "openai",
+    "sdk",
+    "typescript"
+  ],
+  "author": "CognipeerAI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cognipeer/cgate-sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/Cognipeer/cgate-sdk/issues"
+  },
+  "homepage": "https://cognipeer.github.io/cgate-sdk",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vitest/coverage-v8": "^1.0.4",
+    "eslint": "^8.54.0",
+    "prettier": "^3.1.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitepress": "^1.0.0",
+    "vitest": "^1.0.4"
+  },
+  "dependencies": {
+    "eventsource-parser": "^1.1.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
