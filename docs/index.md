@@ -6,7 +6,7 @@ hero:
   text: CognipeerAI Gateway SDK
   tagline: Official TypeScript/JavaScript SDK for AI services
   image:
-    src: /logo.png
+    src: /cgate-sdk/logo.svg
     alt: CG SDK
   actions:
     - theme: brand
@@ -103,19 +103,14 @@ for await (const chunk of stream) {
 
 ## Learn More
 
-<div class="vp-doc" style="margin-top: 2rem;">
-  <div class="tip custom-block">
-    <p class="custom-block-title">📖 Documentation</p>
-    <p>Check out the <a href="/guide/getting-started">Getting Started Guide</a> to learn more.</p>
-  </div>
-  
-  <div class="info custom-block">
-    <p class="custom-block-title">💡 Examples</p>
-    <p>Explore our <a href="/examples/">Examples</a> for common use cases and patterns.</p>
-  </div>
-  
-  <div class="warning custom-block">
-    <p class="custom-block-title">🆘 Support</p>
-    <p>Need help?<a href="https://github.com/Cognipeer/cgate-sdk/issues">open an issue</a>.</p>
-  </div>
-</div>
+::: tip 📖 Documentation
+Check out the [Getting Started Guide](/cgate-sdk/guide/getting-started) to learn more.
+:::
+
+::: info 💡 Examples
+Explore our [Examples](/cgate-sdk/examples/) for common use cases and patterns.
+:::
+
+::: warning 🆘 Support
+Need help? [Open an issue](https://github.com/Cognipeer/cgate-sdk/issues) on GitHub.
+:::
