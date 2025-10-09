@@ -307,9 +307,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines
 ## 🆘 Support
 
 - 📖 [Documentation](https://cognipeer.github.io/cgate-sdk)
-- 💬 [Discord](https://discord.gg/cognipeer)
 - 🐛 [Issues](https://github.com/Cognipeer/cgate-sdk/issues)
-- 📧 [Email](mailto:support@cognipeer.ai)
+- 📧 [Email](mailto:support@cognipeer.com)
 
 ---
 

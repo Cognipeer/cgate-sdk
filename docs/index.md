@@ -116,6 +116,6 @@ for await (const chunk of stream) {
   
   <div class="warning custom-block">
     <p class="custom-block-title">🆘 Support</p>
-    <p>Need help? Join our <a href="https://discord.gg/cognipeer">Discord</a> or <a href="https://github.com/Cognipeer/cgate-sdk/issues">open an issue</a>.</p>
+    <p>Need help?<a href="https://github.com/Cognipeer/cgate-sdk/issues">open an issue</a>.</p>
   </div>
 </div>

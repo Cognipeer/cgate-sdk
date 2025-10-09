@@ -9,7 +9,7 @@ import { TracingResource } from './resources/tracing';
 /**
  * Default configuration values
  */
-const DEFAULT_BASE_URL = 'https://api.cognipeer.ai/api/client/v1';
+const DEFAULT_BASE_URL = 'https://api.cognipeer.com/api/client/v1';
 const DEFAULT_TIMEOUT = 60000; // 60 seconds
 const DEFAULT_MAX_RETRIES = 3;
 
@@ -22,7 +22,7 @@ const DEFAULT_MAX_RETRIES = 3;
  * ```typescript
  * const client = new CGateClient({
  *   apiKey: 'your-api-key',
- *   baseURL: 'https://api.cognipeer.ai', // optional
+ *   baseURL: 'https://api.cognipeer.com', // optional
  * });
  * 
  * // Chat completions

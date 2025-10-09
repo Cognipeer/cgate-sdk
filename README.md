@@ -1,6 +1,6 @@
 # CognipeerAI Gateway SDK
 
-Official TypeScript/JavaScript SDK for [CognipeerAI Gateway](https://cognipeer.ai) - A multi-tenant SaaS platform for AI and Agentic services.
+Official TypeScript/JavaScript SDK for [CognipeerAI Gateway](https://cognipeer.com) - A multi-tenant SaaS platform for AI and Agentic services.
 
 [![npm version](https://img.shields.io/npm/v/@cognipeer/cgate-sdk)](https://www.npmjs.com/package/@cognipeer/cgate-sdk)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
@@ -38,7 +38,7 @@ import { CGateClient } from '@cognipeer/cgate-sdk';
 // Initialize the client
 const client = new CGateClient({
   apiKey: 'your-api-key',
-  baseURL: 'https://api.cognipeer.ai', // Optional, defaults to production
+  baseURL: 'https://api.cognipeer.com', // Optional, defaults to production
 });
 
 // Chat completion
@@ -116,7 +116,7 @@ Full documentation is available at [cognipeer.github.io/cgate-sdk](https://cogni
 ```typescript
 const client = new CGateClient({
   apiKey: string;          // Required: Your API token
-  baseURL?: string;        // Optional: API base URL (default: https://api.cognipeer.ai)
+  baseURL?: string;        // Optional: API base URL (default: https://api.cognipeer.com)
   timeout?: number;        // Optional: Request timeout in ms (default: 60000)
   maxRetries?: number;     // Optional: Max retry attempts (default: 3)
   fetch?: typeof fetch;    // Optional: Custom fetch implementation
@@ -167,11 +167,10 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## License
 
-MIT © [CognipeerAI](https://cognipeer.ai)
+MIT © [CognipeerAI](https://cognipeer.com)
 
 ## Support
 
-- 📧 Email: support@cognipeer.ai
-- 💬 Discord: [Join our community](https://discord.gg/cognipeer)
+- 📧 Email: support@cognipeer.com
 - 📖 Documentation: [cognipeer.github.io/cgate-sdk](https://cognipeer.github.io/cgate-sdk)
 - 🐛 Issues: [GitHub Issues](https://github.com/Cognipeer/cgate-sdk/issues)

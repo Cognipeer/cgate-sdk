@@ -13,7 +13,7 @@ Creates a new CG SDK client instance.
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `options.apiKey` | `string` | Yes | Your CognipeerAI Gateway API key |
-| `options.baseURL` | `string` | No | Custom API base URL (default: `https://api.cognipeer.ai/api/client/v1`) |
+| `options.baseURL` | `string` | No | Custom API base URL (default: `https://api.cognipeer.com/api/client/v1`) |
 | `options.timeout` | `number` | No | Request timeout in milliseconds (default: `60000`) |
 | `options.maxRetries` | `number` | No | Maximum retry attempts (default: `3`) |
 | `options.fetch` | `typeof fetch` | No | Custom fetch implementation |
@@ -25,7 +25,7 @@ Creates a new CG SDK client instance.
 ```typescript
 const client = new CGateClient({
   apiKey: 'your-api-key',
-  baseURL: 'https://api.cognipeer.ai',
+  baseURL: 'https://api.cognipeer.com',
   timeout: 30000,
   maxRetries: 5,
 });
@@ -85,7 +85,7 @@ Get the configured base URL.
 
 ```typescript
 const baseURL = client.getBaseURL();
-console.log(baseURL); // "https://api.cognipeer.ai/api/client/v1"
+console.log(baseURL); // "https://api.cognipeer.com/api/client/v1"
 ```
 
 ## Type Definitions
@@ -272,7 +272,7 @@ try {
 ### Default Values
 
 ```typescript
-const DEFAULT_BASE_URL = 'https://api.cognipeer.ai/api/client/v1';
+const DEFAULT_BASE_URL = 'https://api.cognipeer.com/api/client/v1';
 const DEFAULT_TIMEOUT = 60000; // 60 seconds
 const DEFAULT_MAX_RETRIES = 3;
 ```

@@ -226,5 +226,4 @@ import type {
 ## Need Help?
 
 - 📖 [API Reference](/api/client)
-- 💬 [Discord Community](https://discord.gg/cognipeer)
 - 🐛 [Report Issues](https://github.com/Cognipeer/cgate-sdk/issues)

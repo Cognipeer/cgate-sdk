@@ -4,7 +4,7 @@ Welcome to the CG SDK! This guide will help you get started with the CognipeerAI
 
 ## What is CG SDK?
 
-The CG SDK is the official TypeScript/JavaScript client library for [CognipeerAI Gateway](https://cognipeer.ai), a multi-tenant SaaS platform for AI and Agentic services. It provides:
+The CG SDK is the official TypeScript/JavaScript client library for [CognipeerAI Gateway](https://cognipeer.com), a multi-tenant SaaS platform for AI and Agentic services. It provides:
 
 - **Chat Completions**: OpenAI-compatible chat API with streaming
 - **Embeddings**: Text vectorization for semantic search
@@ -39,7 +39,7 @@ pnpm add @cognipeer/cgate-sdk
 
 ## Get Your API Key
 
-1. Sign up at [CognipeerAI Gateway](https://cognipeer.ai)
+1. Sign up at [CognipeerAI Gateway](https://cognipeer.com)
 2. Navigate to your dashboard
 3. Go to **Settings** > **API Tokens**
 4. Create a new API token
@@ -121,7 +121,7 @@ The client supports several configuration options:
 ```typescript
 const client = new CGateClient({
   apiKey: 'your-api-key',
-  baseURL: 'https://api.cognipeer.ai', // Optional: custom API URL
+  baseURL: 'https://api.cognipeer.com', // Optional: custom API URL
   timeout: 60000, // Optional: request timeout (ms)
   maxRetries: 3, // Optional: max retry attempts
   fetch: customFetch, // Optional: custom fetch implementation
@@ -160,6 +160,5 @@ const request: ChatCompletionRequest = {
 ## Getting Help
 
 - 📖 [Full Documentation](/api/client)
-- 💬 [Discord Community](https://discord.gg/cognipeer)
 - 🐛 [Report Issues](https://github.com/Cognipeer/cgate-sdk/issues)
-- 📧 [Email Support](mailto:support@cognipeer.ai)
+- 📧 [Email Support](mailto:support@cognipeer.com)

@@ -155,6 +155,5 @@ Maintainers will handle releases:
 
 - Open an issue for bugs
 - Use discussions for questions
-- Join our Discord for chat
 
 Thank you for contributing! 🎉

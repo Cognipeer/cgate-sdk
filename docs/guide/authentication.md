@@ -8,7 +8,7 @@ The CG SDK uses API keys for authentication. All API requests must include a val
 
 ## Getting Your API Key
 
-1. Sign up at [CognipeerAI Gateway](https://cognipeer.ai)
+1. Sign up at [CognipeerAI Gateway](https://cognipeer.com)
 2. Navigate to your dashboard
 3. Go to **Settings** → **API Tokens**
 4. Click **Create New Token**
@@ -141,7 +141,7 @@ export const client = new CGateClient({
 // config/staging.ts
 export const client = new CGateClient({
   apiKey: process.env.STAGING_CGATE_API_KEY!,
-  baseURL: 'https://staging-api.cognipeer.ai/api/client/v1',
+  baseURL: 'https://staging-api.cognipeer.com/api/client/v1',
 });
 ```
 
@@ -168,7 +168,7 @@ const configs = {
   },
   staging: {
     apiKey: process.env.STAGING_CGATE_API_KEY!,
-    baseURL: 'https://staging-api.cognipeer.ai/api/client/v1',
+    baseURL: 'https://staging-api.cognipeer.com/api/client/v1',
   },
   production: {
     apiKey: process.env.PROD_CGATE_API_KEY!,

@@ -10,7 +10,7 @@ npm install @cognipeer/cgate-sdk
 
 ## 2. Get API Key
 
-1. Sign up at [cognipeer.ai](https://cognipeer.ai)
+1. Sign up at [cognipeer.com](https://cognipeer.com)
 2. Go to **Settings** → **API Tokens**
 3. Create a new token
 4. Copy your API key
@@ -181,6 +181,5 @@ const request: ChatCompletionRequest = {
 ## Need Help?
 
 - 📖 [Documentation](https://cognipeer.github.io/cgate-sdk)
-- 💬 [Discord](https://discord.gg/cognipeer)
 - 🐛 [Issues](https://github.com/Cognipeer/cgate-sdk/issues)
-- 📧 [Email](mailto:support@cognipeer.ai)
+- 📧 [Email](mailto:support@cognipeer.com)

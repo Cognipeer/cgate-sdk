@@ -39,7 +39,7 @@ const client = new CGateClient({
 });
 ```
 
-**Default**: `https://api.cognipeer.ai/api/client/v1`
+**Default**: `https://api.cognipeer.com/api/client/v1`
 
 ### Timeout (Optional)
 
@@ -97,7 +97,7 @@ const client = new CGateClient({
 ```typescript
 const client = new CGateClient({
   apiKey: process.env.PROD_API_KEY!,
-  baseURL: 'https://api.cognipeer.ai/api/client/v1',
+  baseURL: 'https://api.cognipeer.com/api/client/v1',
   timeout: 60000,
   maxRetries: 3,
 });
@@ -149,7 +149,7 @@ function createClient(options: {
 }): CGateClient {
   const baseURLs = {
     development: 'http://localhost:3000/api/client/v1',
-    production: 'https://api.cognipeer.ai/api/client/v1',
+    production: 'https://api.cognipeer.com/api/client/v1',
   };
 
   return new CGateClient({
@@ -242,7 +242,7 @@ Recommended environment variables:
 ```bash
 # .env.example
 CGATE_API_KEY=your-api-key
-CGATE_BASE_URL=https://api.cognipeer.ai/api/client/v1
+CGATE_BASE_URL=https://api.cognipeer.com/api/client/v1
 CGATE_TIMEOUT=60000
 CGATE_MAX_RETRIES=3
 ```
