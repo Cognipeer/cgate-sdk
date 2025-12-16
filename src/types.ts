@@ -300,6 +300,7 @@ export interface TracingAgent {
 }
 
 export interface TracingSummary {
+  totalDurationMs?: number;
   totalInputTokens?: number;
   totalOutputTokens?: number;
   totalCachedInputTokens?: number;
@@ -308,23 +309,91 @@ export interface TracingSummary {
   eventCounts?: Record<string, number>;
 }
 
-export interface TracingEvent {
+export interface TracingActor {
+  scope?: 'agent' | 'tool' | 'system';
+  name?: string;
+  role?: string;
+}
+
+export interface TracingSection {
+  kind?: 'message' | 'tool_call' | 'tool_result' | 'data';
+  label?: string;
+  role?: string;
+  content?: string;
   id?: string;
-  type?: string;
+  toolName?: string;
+  args?: Record<string, unknown>;
+  result?: unknown;
+}
+
+/**
+ * Event types for tracing
+ * - ai_call: LLM/model invocation
+ * - tool_call: Tool/function execution
+ * - chain_start: Chain/graph execution started
+ * - chain_end: Chain/graph execution completed
+ * - chain_error: Chain/graph execution error
+ * - llm_start: LLM call started
+ * - llm_end: LLM call completed
+ * - llm_error: LLM call error
+ * - tool_start: Tool call started
+ * - tool_end: Tool call completed
+ * - tool_error: Tool call error
+ * - error: General error
+ */
+export type TracingEventType =
+  | 'ai_call'
+  | 'tool_call'
+  | 'chain_start'
+  | 'chain_end'
+  | 'chain_error'
+  | 'llm_start'
+  | 'llm_end'
+  | 'llm_error'
+  | 'tool_start'
+  | 'tool_end'
+  | 'tool_error'
+  | 'error'
+  | string;
+
+/**
+ * Status for tracing events and sessions
+ */
+export type TracingStatus = 'success' | 'error' | 'running' | 'completed' | string;
+
+export interface TracingEvent {
+  sessionId?: string;
+  id?: string;
+  type?: TracingEventType;
   label?: string;
   sequence?: number;
   timestamp?: string;
-  status?: string;
-  model?: string;
-  modelName?: string;
-  toolName?: string;
+  status?: TracingStatus;
+  durationMs?: number;
   inputTokens?: number;
   outputTokens?: number;
+  totalTokens?: number;
   cachedInputTokens?: number;
-  actor?: Record<string, unknown>;
-  sections?: Array<Record<string, unknown>>;
+  requestBytes?: number;
+  responseBytes?: number;
+  model?: string;
+  actor?: TracingActor;
+  sections?: TracingSection[];
+  data?: {
+    sections?: TracingSection[];
+  };
+  error?: string;
   metadata?: Record<string, unknown>;
+  // Legacy fields for backwards compatibility
+  modelName?: string;
+  toolName?: string;
   usage?: Record<string, unknown>;
+}
+
+export interface TracingError {
+  message: string;
+  type?: string;
+  timestamp?: string;
 }
 
 export interface TracingSessionRequest {
@@ -332,11 +401,11 @@ export interface TracingSessionRequest {
   agent?: TracingAgent;
   config?: Record<string, unknown>;
   summary?: TracingSummary;
-  status?: string;
+  status?: TracingStatus;
   startedAt?: string;
   endedAt?: string;
   durationMs?: number;
-  errors?: Array<Record<string, unknown>>;
+  errors?: TracingError[];
   events?: TracingEvent[];
 }
 

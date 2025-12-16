@@ -15,6 +15,22 @@ export * from './types';
 // Errors
 export { CGateError, CGateAPIError } from './types';
 
+// LangChain integrations
+export {
+  CGateLangChainChatModel,
+  CGateTracingCallbackHandler,
+  createCGateAgentTracing,
+  createCGateTracingMiddleware,
+} from './integrations/langchain';
+
+// LangGraph integrations
+export {
+  CGateLangGraphTracer,
+  createCGateLangGraphTracing,
+  createTracedGraphInvoker,
+  createTracedGraphStreamer,
+} from './integrations/langgraph';
+
 // Re-export for convenience
 export type {
   // Configuration
@@ -60,3 +76,11 @@ export type {
   // Common
   Usage,
 } from './types';
+
+// LangGraph types
+export type {
+  CGateLangGraphTracingOptions,
+  CGateLangGraphTracingBinding,
+  NodeExecutionContext,
+  GraphExecutionContext,
+} from './integrations/langgraph';

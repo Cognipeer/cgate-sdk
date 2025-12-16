@@ -2,7 +2,259 @@
 
 The Tracing API provides built-in observability for agent executions, allowing you to monitor, debug, and analyze your AI workflows.
 
-## Methods
+## LangChain v1 Middleware Integration
+
+The recommended way to add tracing to LangChain v1 agents is using the `createCGateTracingMiddleware` function:
+
+```typescript
+import { createAgent } from 'langchain';
+import { CGateClient, createCGateTracingMiddleware } from '@cognipeer/cgate-sdk';
+
+// Create client
+const client = new CGateClient({
+  apiKey: process.env.CGATE_API_KEY,
+  baseURL: process.env.CGATE_BASE_URL,
+});
+
+// Create tracing middleware
+const tracing = createCGateTracingMiddleware({
+  client,
+  agent: {
+    name: 'my-agent',
+    model: 'gpt-4o-mini',
+  },
+  debug: true, // Enable debug logging
+});
+
+// Create agent with middleware
+const agent = createAgent({
+  model: 'gpt-4o-mini',
+  tools: [...],
+  middleware: [tracing.middleware],
+});
+
+// Run agent
+const response = await agent.invoke({
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+
+// Session automatically flushes on agent completion
+// Or manually end the session:
+await tracing.end('success');
+
+console.log('Session ID:', tracing.sessionId);
+```
+
+### Middleware Options
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `client` | `CGateClient \| CGateClientOptions` | Yes | SDK client or config |
+| `sessionId` | `string` | No | Custom session ID (auto-generated if omitted) |
+| `agent` | `TracingAgent` | No | Agent metadata |
+| `agent.name` | `string` | No | Agent name |
+| `agent.model` | `string` | No | Default model name |
+| `agent.version` | `string` | No | Agent version |
+| `config` | `Record<string, unknown>` | No | Custom config to store |
+| `debug` | `boolean` | No | Enable debug logging |
+| `logger` | `function` | No | Custom logger function |
+
+### Middleware Binding
+
+The middleware returns a binding object:
+
+```typescript
+interface CGateTracingMiddlewareBinding {
+  middleware: AgentMiddleware;  // Pass to agent.middleware
+  handler: CGateTracingCallbackHandler;  // Direct handler access
+  sessionId: string;  // Current session ID
+  flush: (status?: 'success' | 'error' | 'running') => Promise<void>;
+  end: (status?: 'success' | 'error') => Promise<void>;
+}
+```
+
+## Session Payload Format
+
+When sending tracing data to CGate, use the following format:
+
+```typescript
+interface TracingSessionRequest {
+  sessionId: string;                    // Unique session identifier (e.g., "sess_ZOc-SYK2n0KcJejwXv")
+  startedAt: string;                    // ISO 8601 timestamp
+  endedAt: string;                      // ISO 8601 timestamp
+  durationMs: number;                   // Total duration in milliseconds
+  agent: {
+    name: string;                       // Agent name
+    model?: string;                     // Primary model used
+    version?: string;                   // Agent version
+  };
+  config?: Record<string, unknown>;     // Custom configuration
+  summary: {
+    totalDurationMs: number;            // Total duration
+    totalInputTokens: number;           // Total input tokens across all calls
+    totalOutputTokens: number;          // Total output tokens
+    totalCachedInputTokens: number;     // Cached tokens
+    totalBytesIn: number;               // Request bytes
+    totalBytesOut: number;              // Response bytes
+    eventCounts: Record<string, number>; // e.g., { "ai_call": 2, "tool_call": 3 }
+  };
+  events: TracingEvent[];               // List of events
+  status: 'success' | 'error' | 'running';
+  errors: Array<{
+    message: string;
+    type?: string;
+    timestamp?: string;
+  }>;
+}
+```
+
+### Event Format
+
+Each event in the session follows this format:
+
+```typescript
+interface TracingEvent {
+  sessionId: string;                    // Parent session ID
+  id: string;                           // Unique event ID (e.g., "evt_0001_ImyC")
+  type: 'ai_call' | 'tool_call';        // Event type
+  label: string;                        // Human-readable label
+  sequence: number;                     // Event sequence number
+  timestamp: string;                    // ISO 8601 timestamp
+  status: 'success' | 'error';          // Event status
+  durationMs: number;                   // Duration in milliseconds
+  
+  // Token usage (for ai_call events)
+  inputTokens?: number;
+  outputTokens?: number;
+  totalTokens?: number;
+  cachedInputTokens?: number;
+  
+  // Byte usage
+  requestBytes?: number;
+  responseBytes?: number;
+  
+  // Model info
+  model?: string;
+  
+  // Actor info
+  actor: {
+    scope: 'agent' | 'tool' | 'system';
+    name: string;
+    role: string;
+  };
+  
+  // Event data with sections
+  data: {
+    sections: TracingSection[];
+  };
+  
+  // Error info
+  error?: string;
+}
+```
+
+### Section Format
+
+Sections contain the actual message/tool content:
+
+```typescript
+interface TracingSection {
+  kind: 'message' | 'tool_call' | 'tool_result' | 'data';
+  label: string;
+  id: string;
+  
+  // For message sections
+  role?: 'system' | 'user' | 'assistant' | 'tool';
+  content?: string;
+  
+  // For tool sections
+  toolName?: string;
+  args?: Record<string, unknown>;
+  result?: unknown;
+}
+```
+
+### Complete Example Payload
+
+```json
+{
+  "sessionId": "sess_ZOc-SYK2n0KcJejwXv",
+  "startedAt": "2025-12-11T14:15:23.200Z",
+  "endedAt": "2025-12-11T14:15:28.390Z",
+  "durationMs": 5190,
+  "agent": {
+    "name": "MyAgent",
+    "model": "gpt-4o-mini"
+  },
+  "config": {
+    "enabled": true
+  },
+  "summary": {
+    "totalDurationMs": 5177,
+    "totalInputTokens": 1396,
+    "totalOutputTokens": 100,
+    "totalCachedInputTokens": 0,
+    "totalBytesIn": 2414,
+    "totalBytesOut": 2018,
+    "eventCounts": {
+      "ai_call": 1
+    }
+  },
+  "events": [
+    {
+      "sessionId": "sess_ZOc-SYK2n0KcJejwXv",
+      "id": "evt_0001_ImyC",
+      "type": "ai_call",
+      "label": "Assistant Response #1",
+      "sequence": 1,
+      "timestamp": "2025-12-11T14:15:28.389Z",
+      "actor": {
+        "scope": "agent",
+        "name": "MyAgent",
+        "role": "assistant"
+      },
+      "status": "success",
+      "durationMs": 5177,
+      "inputTokens": 1396,
+      "outputTokens": 100,
+      "totalTokens": 1496,
+      "cachedInputTokens": 0,
+      "requestBytes": 2414,
+      "responseBytes": 2018,
+      "model": "gpt-4o-mini",
+      "data": {
+        "sections": [
+          {
+            "kind": "message",
+            "label": "System Message",
+            "role": "system",
+            "content": "You are a helpful assistant.",
+            "id": "message-evt_0001_ImyC-01"
+          },
+          {
+            "kind": "message",
+            "label": "User Message",
+            "role": "user",
+            "content": "Hello!",
+            "id": "message-evt_0001_ImyC-02"
+          },
+          {
+            "kind": "message",
+            "label": "Assistant Message",
+            "role": "assistant",
+            "content": "Hello! How can I help you today?",
+            "id": "message-evt_0001_ImyC-03"
+          }
+        ]
+      }
+    }
+  ],
+  "status": "success",
+  "errors": []
+}
+```
+
+## Low-Level Methods
 
 ### `tracing.createTrace(params)`
 
